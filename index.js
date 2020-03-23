@@ -31,12 +31,26 @@ setInterval(() => {
   }
 }, 1000);
 
+
+function toggleLed(index) {
+  ledData[index] = !ledData[index];
+}
+
+
 // Use 'dev' for logging
 app.use(morgan('dev'));
 
 app.use(cors());
+app.use(express.json());
 
 app.get('/', (req, res)  => {
+  res.send(JSON.stringify(ledData));
+});
+
+app.post('/', (req, res) => {
+  //console.log(req.body);
+  console.log(req.body.index);
+  toggleLed(req.body.index);
   res.send(JSON.stringify(ledData));
 });
 
